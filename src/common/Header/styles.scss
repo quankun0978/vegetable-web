@@ -1,0 +1,30 @@
+@import "@/styles/variables.scss";
+.ant-menu-horizontal .ant-menu-submenu,
+.ant-menu-item:hover {
+  background-color: var(--color-green-200) !important; /* Màu nền khi hover */
+  color: var(--color-white) !important; /* Màu chữ khi hover */
+}
+.ant-menu-horizontal .ant-menu-item:focus {
+  background-color: var(--color-green-200) !important; /* Màu nền khi hover */
+  color: var(--color-white) !important; /* Màu chữ khi hover */
+}
+.ant-menu-horizontal .ant-menu-submenu,
+.ant-menu-item::after {
+  display: none;
+}
+
+.ant-menu-horizontal .ant-menu-submenu,
+.ant-menu-item-selected {
+  background-color: var(--color-green-200) !important; /* Màu nền khi hover */
+  color: var(--color-white) !important; /* Màu chữ khi hover */
+}
+
+.header-menu {
+  .ant-menu-horizontal .ant-menu-submenu,
+  .ant-menu-item {
+    color: var(--color-white) !important;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 14px;
+  }
+}

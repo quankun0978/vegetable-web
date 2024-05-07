@@ -1,0 +1,8 @@
+.table-custom {
+  .ant-table-cell {
+    background-color: white !important;
+    &::before {
+      display: none !important;
+    }
+  }
+}

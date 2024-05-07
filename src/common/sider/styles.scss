@@ -1,0 +1,58 @@
+@import "@/styles/variables.scss";
+.sider {
+  margin-bottom: 16px;
+  font-size: 16px;
+
+  .sider-title {
+    color: black;
+    line-height: 1.05;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+  .sider-menu {
+    .sider-menu-item {
+      color: #666666;
+      padding: 6px 0;
+      &:hover {
+        color: var(--color-green);
+        cursor: pointer;
+      }
+      &:last-child::after {
+        display: none;
+      }
+      &::after {
+        content: "";
+        display: block;
+        width: 100%;
+        margin-top: 4px;
+        height: 1px;
+        background-color: var(--color-black);
+      }
+    }
+    .sider-menu-item-image {
+      position: relative;
+      color: #666666;
+      .sider-name {
+        &:hover {
+          color: var(--color-green);
+          cursor: pointer;
+        }
+      }
+
+      &:last-child::after {
+        display: none;
+      }
+      &::after {
+        position: absolute;
+        bottom: 0;
+        content: "";
+        display: block;
+        width: 100%;
+        margin-top: 4px;
+        height: 1px;
+        background-color: var(--color-black);
+      }
+    }
+  }
+}

@@ -1,0 +1,115 @@
+@import "@/styles/variables.scss";
+
+.react-multi-carousel-list {
+  &:hover {
+    .arrow-right,
+    .arrow-left {
+      visibility: visible;
+      transform: translateX(0);
+    }
+
+    .arrow-right-bandner,
+    .arrow-left-bandner {
+      visibility: visible;
+      transform: translateX(0);
+    }
+  }
+  .arrow-right-bandner {
+    visibility: hidden;
+    transform: translateX(-20px);
+    overflow: hidden;
+
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--color-gray);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    position: absolute;
+    transition: 0.2s;
+    right: 14px;
+    &:hover {
+      background-color: var(--color-green);
+      border: none;
+      .slider-icon {
+        color: var(--color-white) !important;
+      }
+    }
+  }
+  .arrow-right {
+    visibility: hidden;
+    transform: translateX(-10px);
+    overflow: hidden;
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--color-black-600);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    position: absolute;
+    transition: 0.2s;
+    right: 0px;
+    top: 25%;
+    &:hover {
+      background-color: var(--color-green);
+      border: none;
+      .slider-icon {
+        color: var(--color-white) !important;
+      }
+    }
+  }
+
+  .arrow-left-bandner {
+    visibility: hidden;
+    transform: translateX(20px);
+    overflow: hidden;
+
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--color-gray);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    position: absolute;
+    transition: 0.2s;
+    left: 14px;
+    &:hover {
+      background-color: var(--color-green);
+      border: none;
+      .slider-icon {
+        color: var(--color-white) !important;
+      }
+    }
+  }
+  .arrow-left {
+    visibility: hidden;
+    transform: translateX(0px);
+    overflow: hidden;
+
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--color-black-600);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    position: absolute;
+    transition: 0.2s;
+    left: 0;
+    top: 25%;
+    &:hover {
+      background-color: var(--color-green);
+      border: none;
+      .slider-icon {
+        color: var(--color-white) !important;
+      }
+    }
+  }
+}
