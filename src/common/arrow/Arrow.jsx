@@ -4,7 +4,8 @@ import {
   MdOutlineArrowBackIos,
   MdOutlineArrowForwardIos,
 } from "react-icons/md";
-import "./styles.scss";
+
+import "./arrow.scss";
 
 export const ArrowRight = ({ onClick, ...rest }) => {
   // onMove means if dragging or swiping in progress.
@@ -50,12 +51,8 @@ export const ArrowLeft = ({ onClick, ...rest }) => {
   );
 };
 ArrowLeft.propTypes = {
-  // You can declare that a prop is a specific JS primitive. By default, these
-  // are all optional.
   onClick: PropTypes.func,
 };
 ArrowRight.propTypes = {
-  // You can declare that a prop is a specific JS primitive. By default, these
-  // are all optional.
   onClick: PropTypes.func,
 };

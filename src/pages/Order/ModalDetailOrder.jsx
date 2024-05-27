@@ -1,10 +1,10 @@
 import { memo, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
-import * as api from "@/api/apiOrder";
 import { Modal } from "antd";
 import Table from "@/common/Table/Table";
-import DetailProduct from "../product/DetailProduct";
+
+import * as api from "@/api/orders";
 
 const columns = [
   {
@@ -21,17 +21,19 @@ const columns = [
     dataIndex: "quantity",
   },
 ];
+
 const ModalDetailOrder = ({ item, isModalOpen, setIsModalOpen }) => {
   const [data, setData] = useState();
+
   useEffect(() => {
     handleGetData();
   }, [item]);
+
   const handleGetData = async () => {
     if (item && item.order_id) {
       const dt = await api.getListOrderItem(item.order_id);
-      if (dt && dt && dt.results) {
+      if (dt && dt.results) {
         const dtTable =
-          dt &&
           dt.results &&
           dt.results.length > 0 &&
           dt.results.map((item, index) => {
@@ -50,7 +52,7 @@ const ModalDetailOrder = ({ item, isModalOpen, setIsModalOpen }) => {
                 </div>
               ),
               price: item.Product.price,
-              quantity: `${item.quantity}`,
+              quantity: item.quantity,
               total: item.total,
             };
           });
@@ -62,6 +64,7 @@ const ModalDetailOrder = ({ item, isModalOpen, setIsModalOpen }) => {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+
   return (
     <Modal
       footer={() => {
@@ -71,19 +74,26 @@ const ModalDetailOrder = ({ item, isModalOpen, setIsModalOpen }) => {
       open={isModalOpen}
       onCancel={handleCancel}
     >
-      <h3 className="mb-2">
-        Phương thức thanh toán :{item && item.payment_id}
-      </h3>
-      <h3 className="mb-2">Ngày mua hàng :{item && item.createdAt}</h3>
-      <Table pagination={false} columns={columns} dataSource={data} />
+      <h3 className="mb-2">Phương thức thanh toán: {item && item.payment}</h3>
+      <h3 className="mb-2">Địa chỉ giao hàng: {item && item.address}</h3>
+      <h3 className="mb-2">Ngày mua hàng: {item && item.createdAt}</h3>
+      <Table
+        pagination={false}
+        columns={columns}
+        dataSource={data}
+        scroll={{
+          y: 350,
+          x: 500,
+        }}
+      />
     </Modal>
   );
 };
 
-DetailProduct.propTypes = {
+ModalDetailOrder.propTypes = {
   item: PropTypes.object,
   isModalOpen: PropTypes.bool,
-  setIsModalOpen: PropTypes.func,
+  setIsModalOpen: PropTypes.func.isRequired,
 };
 
 export default memo(ModalDetailOrder);

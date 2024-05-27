@@ -1,0 +1,6 @@
+.ant-input-search-button {
+  background-color: var(--color-green);
+  &:hover {
+    background-color: var(--color-green-200) !important;
+  }
+}

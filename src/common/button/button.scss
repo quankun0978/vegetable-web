@@ -2,10 +2,10 @@
 
 .btn-default {
   height: auto;
+  border-radius: 0;
   &:hover {
     background-color: var(--color-white) !important;
     color: var(--color-green) !important;
     border: 1px solid var(--color-green) !important;
   }
 }
-

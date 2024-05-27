@@ -31,3 +31,14 @@ export const changePasswordUser = (data) => {
     password_new: md5(data.password_new),
   });
 };
+
+export const sendMail = (data) => {
+  return axios.post(`/api/user/send_mail`, data);
+};
+
+export const resetPassword = (data) => {
+  return axios.post(`/api/user/reset_password`, {
+    ...data,
+    password_new: md5(data.password_new),
+  });
+};

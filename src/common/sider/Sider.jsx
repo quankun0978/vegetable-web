@@ -1,39 +1,55 @@
 import { memo } from "react";
-
-import Sider from "antd/es/layout/Sider";
-import ItemSider from "./item";
+import { useNavigate } from "react-router-dom";
 
 import PropTypes from "prop-types";
 
+import Sider from "antd/es/layout/Sider";
+import ItemSider from "./Item";
+
+import { PATH } from "@/routes/path";
+
 const SiderCustom = ({ data }) => {
+  const navigate = useNavigate();
+
+  const dataSale =
+    data && data.length > 0
+      ? data.filter((item) => item.price > item.price_sale)
+      : [];
+
   return (
     <Sider
-      width="20%"
+      width={"auto"}
+      className="md:w-1/4 xl:w-auto"
       style={{
         background: "var(--color-white)",
+        maxWidth: "16px !important",
       }}
     >
       <ItemSider
         item={[
           {
             label: "Cây giống",
-            value: "pea",
+            value: "seedling",
+            onClick: () => {
+              navigate(PATH.SAN_PHAM),
+                window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+            },
           },
           {
-            label: "Hạt giống hoa",
-            value: "pea",
+            label: "Hoa quả",
+            value: "fruit",
+            onClick: () => {
+              navigate(PATH.SAN_PHAM),
+                window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+            },
           },
           {
-            label: "Hạt giống hoa",
-            value: "pea",
-          },
-          {
-            label: "Hạt giống hoa",
-            value: "pea",
-          },
-          {
-            label: "Cây giống",
-            value: "pea",
+            label: "Rau củ",
+            value: "vegetable",
+            onClick: () => {
+              navigate(PATH.SAN_PHAM),
+                window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+            },
           },
         ]}
         isImage={false}
@@ -41,34 +57,7 @@ const SiderCustom = ({ data }) => {
         title={"Danh mục sản phẩm"}
         isparagraph={false}
       />
-      <ItemSider
-        item={[
-          {
-            label: "Cây giống",
-            value: "pea",
-          },
-          {
-            label: "Hạt giống hoa",
-            value: "pea",
-          },
-          {
-            label: "Hạt giống hoa",
-            value: "pea",
-          },
-          {
-            label: "Hạt giống hoa",
-            value: "pea",
-          },
-          {
-            label: "Cây giống",
-            value: "pea",
-          },
-        ]}
-        isImage={false}
-        colorItem={"rgba(0,0,0,0.1)"}
-        title={"Tư vấn"}
-        isparagraph={false}
-      />
+
       <ItemSider
         item={data}
         isImage={true}
@@ -77,7 +66,8 @@ const SiderCustom = ({ data }) => {
         isparagraph={false}
       />
       <ItemSider
-        item={data}
+        isSale={true}
+        item={dataSale}
         isImage={true}
         colorItem={"rgba(0,0,0,0.1)"}
         title={"KHUYẾN MÃI"}

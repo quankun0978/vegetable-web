@@ -1,10 +1,11 @@
 import { memo } from "react";
 
 import PropTypes from "prop-types";
-import { Button as ButtonAnt, ConfigProvider } from "antd";
 
+import { Button as ButtonAnt, ConfigProvider } from "antd";
 import { defaultButton } from "@/config/theme/button";
-import "./style.scss";
+
+import "./button.scss";
 
 const Button = ({ text, onClick, icon, className, ...props }) => {
   return (

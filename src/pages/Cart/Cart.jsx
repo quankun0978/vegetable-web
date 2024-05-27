@@ -1,13 +1,16 @@
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { notification } from "antd";
+import { useNavigate } from "react-router-dom";
+
+import { Notification } from "@/common/Notification/Notification";
 import Table from "@/common/Table/Table.jsx";
-import { TiDeleteOutline } from "react-icons/ti";
 import Button from "@/common/button/Button";
 
-import * as api from "@/api/apiCart";
-import { useNavigate } from "react-router-dom";
+import { TiDeleteOutline } from "react-icons/ti";
+
+import * as api from "@/api/cart";
 import { PATH } from "@/routes/path";
+
 const columns = [
   {
     title: "Sản phẩm ",
@@ -48,9 +51,10 @@ const Cart = () => {
         handleGetData();
       }
     } catch (e) {
-      notification.error("Lỗi");
+      Notification.error("Lỗi");
     }
   };
+
   const handleGetData = async () => {
     if (currentUser && currentUser.user_id) {
       const dt = await api.getListCartItem(currentUser.user_id);
@@ -60,11 +64,12 @@ const Cart = () => {
           dt.results &&
           dt.results.length > 0 &&
           dt.results.map((item, index) => {
-            return {
+                return {
               ...item,
+
               key: index,
               name: (
-                <div className="flex gap-2 items-center">
+                <div className="flex  flex-wrap  justify-center md:justify-start gap-2 items-center ">
                   <TiDeleteOutline
                     size={24}
                     onClick={() =>
@@ -77,10 +82,13 @@ const Cart = () => {
                     width={76}
                     height={76}
                   />
-                  <p>{item.Product.name}</p>
+                  <p className="hidden md:block">{item.Product.name}</p>
                 </div>
               ),
-              price: item.Product.price,
+              price:
+                item.Product.price > item.Product.price_sale
+                  ? item.Product.price_sale
+                  : item.Product.price,
               quantity: `${item.quantity}`,
               total: item.total,
             };
@@ -94,7 +102,7 @@ const Cart = () => {
     }
   };
   return (
-    <div className="py-4 flex flex-col justify-center w-full">
+    <div className="py-12 flex flex-col justify-center w-full ">
       {data && data.length > 0 ? (
         <Table
           pagination={false}
@@ -102,12 +110,13 @@ const Cart = () => {
           dataSource={data}
           scroll={{
             y: 350,
+            x: 300,
           }}
         />
       ) : (
         <h3 className="text-center">Chưa có sản phẩm nào trong giỏ hàng.</h3>
       )}
-      <div className="flex justify-between items-center mt-4">
+      <div className="flex justify-between flex-wrap gap-2 items-center mt-4">
         {data && data.length > 0 && <h3>Tổng tiền {total}đ</h3>}
         <div
           className={`flex gap-2  ${

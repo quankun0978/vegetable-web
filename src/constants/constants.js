@@ -29,3 +29,10 @@ export const Slider = {
 export const REGEXEMAIL = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
 export const REGEXPHONE =
   /^(0|\+84)(3[2-9]|5[6|8|9]|7[0|6-9]|8[1-6|8-9]|9[0-4|6-9])\d{7}$/;
+
+export const config = {
+  app_id: "2554",
+  key1: "sdngKKJmqEMzvh5QQcdD2A9XBSKUNaYn",
+  key2: "trMrHtvjo6myautxDUiAcYsVtaeQ8nhf",
+  endpoint: "https://sb-openapi.zalopay.vn/v2/create",
+};

@@ -1,12 +1,10 @@
 import { memo, useEffect, useState } from "react";
-
-import { Button, Col, Form, Input, Row, notification } from "antd";
-
-import * as apiUser from "@/api/apiUser";
 import { useParams } from "react-router-dom";
-// import {  } from "ultils/validate";
 
-// const token = Cookies.get("token");
+import { Button, Col, Form, Input, Row } from "antd";
+import { Notification } from "@/common/Notification/Notification";
+
+import * as apiUser from "@/api/user";
 
 const InfoUser = () => {
   const [form] = Form.useForm();
@@ -33,7 +31,7 @@ const InfoUser = () => {
     try {
       const data = await apiUser.updateUserById(values);
       if (data && data.results) {
-        notification.success("Cập nhật thành công");
+        Notification.success("Cập nhật thành công");
       }
     } catch (e) {
       setError("Lỗi");
@@ -42,7 +40,7 @@ const InfoUser = () => {
 
   return (
     <div
-      className=" h-100 bg-white py-4 my-4"
+      className=" h-100 bg-white "
       style={{
         boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)",
         borderRadius: "8px",

@@ -1,9 +1,10 @@
 import { memo, useState } from "react";
-
-import { Button, Col, Form, Input, Row, notification } from "antd";
-
-import * as apiUser from "@/api/apiUser";
 import { useSelector } from "react-redux";
+
+import { Button, Col, Form, Input, Row } from "antd";
+import { Notification } from "@/common/Notification/Notification";
+
+import * as apiUser from "@/api/user";
 
 const ChangePassword = () => {
   const [form] = Form.useForm();
@@ -22,7 +23,7 @@ const ChangePassword = () => {
           password_new: values.password_new,
         });
         if (data && data.results) {
-          notification.success("Đổi mật khẩu thành công");
+          Notification.success("Đổi mật khẩu thành công");
           form.resetFields();
         }
       }
@@ -38,7 +39,7 @@ const ChangePassword = () => {
 
   return (
     <div
-      className=" h-100 bg-white py-4 my-4"
+      className=" h-100 bg-white "
       style={{
         boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)",
         borderRadius: "8px",

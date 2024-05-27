@@ -10,3 +10,24 @@ h3 {
 // body {
 //   position: relative;
 // }
+.ant-menu-item-only-child {
+  opacity: 1 !important;
+  height: auto !important;
+  position: relative !important;
+  pointer-events: unset !important;
+}
+
+.product_sale {
+  width: fit-content;
+  margin: auto;
+  &::after {
+    content: "";
+    display: block;
+    height: 1px;
+    position: absolute;
+    bottom: 50%;
+    left: 0;
+    right: 0;
+    background-color: black;
+  }
+}

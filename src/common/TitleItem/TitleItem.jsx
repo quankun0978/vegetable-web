@@ -1,7 +1,7 @@
 import { memo } from "react";
 
 import PropTypes from "prop-types";
-import "./style.scss";
+import "./title.scss";
 const TitleItem = ({ title }) => {
   return (
     <div>
@@ -13,7 +13,7 @@ const TitleItem = ({ title }) => {
 };
 
 TitleItem.propTypes = {
-  title: PropTypes.number,
+  title: PropTypes.string,
 };
 
 export default memo(TitleItem);

@@ -1,37 +1,76 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 
-import { Layout } from "antd";
 import Cookies from "js-cookie";
 
+import { Layout } from "antd";
 import Header from "@/common/Header/Header.jsx";
 import Footer from "@/common/Footer/Footer.jsx";
+import Chatbot from "@/common/Chatbot/Chatbot";
 
 import { setCurrentUser } from "@/redux/Reducer/userSlice.js";
 import { handleRefreshToken } from "@/redux/Action/authAction.js";
 import { handleGetAllProduct } from "@/redux/Action/productAction";
 
-import "@/styles/style.scss";
+import {
+  handleGetListMyVoucher,
+  handleGetListVoucher,
+} from "@/redux/Action/voucherAction";
+import { handleGetUserById } from "@/redux/Action/userAction";
+import { handleGetListAllCodes } from "@/redux/Action/appAction";
+import { handleGetListNews } from "@/redux/Action/newsAction";
+
+import { IoIosArrowUp } from "react-icons/io";
 
 const { Content } = Layout;
+
+import "@/styles/style.scss";
+import "./main.scss";
 
 const Main = () => {
   const dispath = useDispatch();
   const navigate = useNavigate();
+  const isSuccess = useSelector((state) => state.auth.isSuccess);
+
   let refresh_token = localStorage.getItem("rf_token");
   let CurrentUser = JSON.parse(localStorage.getItem("c_user"));
   let access_token = Cookies.get("a_token");
-  const isSuccess = useSelector((state) => state.auth.isSuccess);
+
+  const [isShowButton, setIsShơwButton] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.innerHeight + window.scrollY;
+      const pageHeight = document.documentElement.scrollHeight;
+
+      if (scrollPosition >= pageHeight - 700) {
+        setIsShơwButton(true);
+      } else {
+        setIsShơwButton(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   useEffect(() => {
     dispath(handleGetAllProduct());
-  }, []);
-  useEffect(() => {
-    if (CurrentUser && Object.keys(CurrentUser).length > 0) {
+    dispath(handleGetListVoucher());
+    dispath(handleGetListAllCodes());
+    dispath(handleGetListNews());
+
+    if (CurrentUser && CurrentUser.user_id) {
+      dispath(handleGetUserById(CurrentUser.user_id));
+      dispath(handleGetListMyVoucher(CurrentUser.user_id));
       dispath(setCurrentUser(CurrentUser));
     }
   }, [CurrentUser]);
+
   useEffect(() => {
     if (refresh_token && !access_token && CurrentUser && CurrentUser.user_id) {
       dispath(
@@ -50,15 +89,29 @@ const Main = () => {
   }, [isSuccess]);
 
   return (
-    <Layout className=" bg-white  ">
+    <Layout className=" bg-white  overflow-hidden h-full  lg:px-0  relative">
       <Header currentUser={CurrentUser} />
 
-      <Content>
-        <Layout className=" mx-56 bg-white max-w-6xl">
-          <Outlet />
+      <Content style={{ height: "100%" }}>
+        <Layout className=" xl:mx-56 bg-white xl:max-w-6xl ">
+          <div className="px-2 md:-mx-2 md:py-4 md:my-4 my-2">
+            <Outlet />
+          </div>
         </Layout>
       </Content>
       <Footer />
+      <div
+        onClick={() => {
+          window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+          setIsShơwButton(false);
+        }}
+        className={`float-btn ${
+          isShowButton ? "end" : "start"
+        }  hover:cursor-pointer hover:bg-lime-500  rounded-full fixed bottom-6 right-24  bg-lime-600 w-12 h-12 flex items-center justify-center`}
+      >
+        <IoIosArrowUp size={24} color="#fff" />
+      </div>
+      {CurrentUser && CurrentUser.user_id ? <Chatbot /> : <div></div>}
     </Layout>
   );
 };

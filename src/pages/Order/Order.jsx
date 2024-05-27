@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-
-import * as api from "@/api/apiOrder";
-import Table from "@/common/Table/Table";
-import Button from "@/common/button/Button";
-import { PATH } from "@/routes/path";
 import { Link, useNavigate } from "react-router-dom";
+
+import Table from "@/common/Table/Table";
 import ModalDetailOrder from "./ModalDetailOrder.jsx";
+import Button from "@/common/button/Button";
+
+import * as api from "@/api/orders.js";
+import { PATH } from "@/routes/path";
 
 const columns = [
   {
@@ -34,11 +35,13 @@ const columns = [
 
 const Order = () => {
   const navigate = useNavigate();
-  const currentUser = useSelector((state) => state.user.currentUser);
-  const [data, setData] = useState();
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const currentUser = useSelector((state) => state.user.currentUser);
+  const listAllCodes = useSelector((state) => state.app.listAllCodes);
+
+  const [data, setData] = useState();
   const [item, setItem] = useState();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     handleGetData();
@@ -53,6 +56,14 @@ const Order = () => {
     if (currentUser && currentUser.user_id) {
       const dt = await api.getOrderById(currentUser.user_id);
       if (dt && dt && dt.results) {
+        const dataStatus =
+          listAllCodes && listAllCodes.length > 0
+            ? listAllCodes.filter((item) => item.type === "status")
+            : [];
+        const dataPayment =
+          listAllCodes && listAllCodes.length > 0
+            ? listAllCodes.filter((item) => item.type === "payment")
+            : [];
         const dtTable =
           dt &&
           dt.results &&
@@ -61,8 +72,23 @@ const Order = () => {
             return {
               ...item,
               key: index,
+              status:
+                dataStatus &&
+                dataStatus.length > 0 &&
+                dataStatus.find((i) => i.value === item.status).label,
               detail: (
-                <Link onClick={() => handleShowModal(item)}>Xem chi tiết </Link>
+                <Link
+                  onClick={() =>
+                    handleShowModal({
+                      ...item,
+                      payment: dataPayment.find(
+                        (i) => i.value === item.payment_id
+                      ).label,
+                    })
+                  }
+                >
+                  Xem chi tiết{" "}
+                </Link>
               ),
             };
           });
@@ -70,7 +96,6 @@ const Order = () => {
       }
     }
   };
-
   return (
     <div className="py-4 flex flex-col justify-center w-full">
       {data && data.length > 0 ? (
@@ -80,6 +105,7 @@ const Order = () => {
           dataSource={data}
           scroll={{
             y: 350,
+            x: 750,
           }}
         />
       ) : (

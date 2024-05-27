@@ -15,3 +15,7 @@ export const addItemToOrder = (data) => {
 export const getListOrderItem = (order_id) => {
   return axios.post("/api/order/item/list", { order_id });
 };
+
+export const paymentZaloPay = (data) => {
+  return axios.post("/api/order/payment/zalopay", data);
+};

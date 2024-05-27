@@ -5,6 +5,7 @@ const initialState = {
   isSuccess: false,
   isLoading: false,
   refresh_token: "",
+  isLogout: false,
 };
 
 export const authSlice = createSlice({
@@ -24,9 +25,14 @@ export const authSlice = createSlice({
       state.isLoading = false;
     });
   },
+  reducers: {
+    logout: (state, action) => {
+      state.isLogout = true;
+    },
+  },
 });
 
 // Action creators are generated for each case reducer function
-export const { login } = authSlice.actions;
+export const { logout } = authSlice.actions;
 
 export default authSlice.reducer;

@@ -1,0 +1,9 @@
+.start {
+  transform: translateY(-1500%);
+  transition: 0.5s;
+}
+
+.end {
+  transform: translateY(0);
+  transition: 0.5s;
+}

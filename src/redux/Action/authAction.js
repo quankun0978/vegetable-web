@@ -1,7 +1,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
-import { refreshTokenUser } from "@/api/apiUser";
+
+import { refreshTokenUser } from "@/api/user";
 
 export const handleRefreshToken = createAsyncThunk(
   "refresh_token",

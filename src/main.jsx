@@ -7,6 +7,7 @@ import App from "./App.jsx";
 
 import { store } from "./redux/store.js";
 import "./index.scss";
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
@@ -14,6 +15,5 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <App />
       </Provider>
     </BrowserRouter>
-    ,
   </React.StrictMode>
 );

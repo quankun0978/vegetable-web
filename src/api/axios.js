@@ -1,5 +1,4 @@
 import axios from "axios";
-import { refreshTokenUser } from "./apiUser";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 
@@ -35,24 +34,42 @@ instance.interceptors.response.use(
   },
   async function (error) {
     const originalRequest = error.config;
-    if (error.response && error.response.status === 401) {
+    if (error.response.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
+
       try {
         const refresh_Token = localStorage.getItem("rf_token");
         const currentUser = JSON.parse(localStorage.getItem("c_user"));
         // const response = await refreshToken({ email: email, refresh_token: refresh_Token });
         if (refresh_Token && currentUser && currentUser.user_id) {
-          const response = await refreshTokenUser({
-            user_id: currentUser.user_id,
-            refresh_Token: refresh_Token,
-          }); 
-          const { result } = response.data;
-          let decodeToken = jwtDecode(result.access_token);
-          let time = new Date(decodeToken.exp * 1000);
+          const response = await axios.post(
+            `${import.meta.env.REACT_APP_URL_BACKEND}/api/refresh_token`,
+            {
+              refresh_token: /"/g.test(refresh_Token)
+                ? refresh_Token.replace(/"/g, "")
+                : refresh_Token,
+              user_id: currentUser.user_id,
+            }
+          );
+          const { results } = response.data;
+          if (results && results.access_token) {
+            let decodeToken = await jwtDecode(results.access_token);
+            if (decodeToken && Object.keys(decodeToken).length > 0) {
+              let time = new Date(decodeToken.exp * 1000);
 
-          Cookies.set("a_token", result.access_token, { expires: time });
-          localStorage.setItem("rf_token", result.refresh_token);
-          // Retry the original request with the new token
-          originalRequest.headers.Authorization = `${result.access_token}`;
+              Cookies.set("a_token", results.access_token, { expires: time });
+
+              localStorage.setItem("rf_token", results.refresh_token);
+              window.location.reload();
+              // Retry the original request with the new token
+            }
+
+            // originalRequest.headers.Authorization = `${results.access_token}`;
+            instance.defaults.headers.common[
+              "Authorization"
+            ] = `${results.refresh_Token}`;
+          }
+
           // window.location.reload();
         }
         return instance(originalRequest);
