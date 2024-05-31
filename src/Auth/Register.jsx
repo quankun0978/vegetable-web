@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router";
 
 import { Form, Input, Spin } from "antd";
-import { Notification } from "@/common/Notification/Notification";
+import { Notification } from "@/common/notification/Notification";
 
 import * as apiUser from "@/api/user";
 import * as validate from "@/ultils/validate";

@@ -4,3 +4,8 @@ export const defaultButton = {
   borderRadius: 0,
   fontWeight: 600,
 };
+export const floatButton = {
+  fontSizeIcon: 16,
+  colorBgElevated: "#80b435",
+  colorPrimaryHover: "#6a942c",
+};

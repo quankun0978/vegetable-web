@@ -3,9 +3,9 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import { Radio, Modal, Spin } from "antd";
-import Input from "@/common/Input/Input";
-import TitleItem from "@/common/TitleItem/TitleItem";
-import { Notification } from "@/common/Notification/Notification";
+import Input from "@/common/input/Input";
+import TitleItem from "@/common/titleItem/TitleItem";
+import { Notification } from "@/common/notification/Notification";
 import Button from "@/common/button/Button";
 
 import { CheckCircleOutlined } from "@ant-design/icons";
@@ -61,7 +61,7 @@ const Payment = () => {
         data &&
         data.length > 0 &&
         data.map((item) => {
-          return { ...item, product_id: item.ProductProductId };
+          return { ...item, product_id: item.product_id };
         });
       const payload = {
         user_id: currentUser.user_id,
@@ -78,11 +78,11 @@ const Payment = () => {
 
       if (res && res.results) {
         setLoading(false);
-        Notification.success("Thanh toán thành công");
+        Notification.success("Đặt hàng thành công");
         navigate(PATH.TRANG_CHU);
       }
     } catch (e) {
-      Notification.error("Thanh toán thất công");
+      Notification.error("Có lỗi xảy ra vui lòng thử lại");
     }
   };
 
@@ -91,14 +91,18 @@ const Payment = () => {
       Notification.error("vui lòng nhập vào mã giảm giá");
     } else {
       if (listMyVoucher && listMyVoucher.length > 0) {
-        const infoCode = listMyVoucher.find(
+        const dataCode = listMyVoucher.find(
           (item) => item.code_id === codeVoucher
         );
-        if (infoCode) {
-          if (infoCode && infoCode.Voucher && infoCode.Voucher.discount) {
+        if (dataCode) {
+          if (
+            dataCode &&
+            dataCode.voucherData &&
+            dataCode.voucherData.discount
+          ) {
             if (count.current === 1) {
-              let disCount = total - infoCode.Voucher.discount;
-              setInfocode(infoCode);
+              let disCount = total - dataCode.voucherData.discount;
+              setInfocode(dataCode);
               count.current++;
               if (disCount < 0) setTotal(0);
               else setTotal(disCount);
@@ -126,7 +130,7 @@ const Payment = () => {
         data &&
         data.length > 0 &&
         data.map((item) => {
-          return { ...item, product_id: item.ProductProductId };
+          return { ...item, product_id: item.product_id };
         });
       const payload = {
         user_id: currentUser.user_id,
@@ -137,6 +141,7 @@ const Payment = () => {
         email: dataInfo.email,
         code_id: infocode.code_id,
         address: address,
+        point: dataInfo.point,
       };
       const res = await paymentZaloPay(payload);
       if (res && res.results && Object.keys(res.results).length > 0) {
@@ -155,24 +160,16 @@ const Payment = () => {
           margin: "12px 0",
         }}
       >
-        <h3 className="my-2 font-bold text-2xl uppercase ">
-          Đơn hàng của bạn{" "}
-        </h3>
+        <h3 className="my-2  text-2xl  ">Đơn hàng của bạn </h3>
         <div>
           <div
             style={{ borderBottom: "2px solid var(--color-gray-100)" }}
             className="flex justify-between items-center mb-2 "
           >
-            <h3
-              className="font-bold  uppercase"
-              style={{ fontSize: "16px", color: "gainsboro" }}
-            >
+            <h3 className="  " style={{ fontSize: "16px", color: "gainsboro" }}>
               Sản phẩm
             </h3>
-            <h3
-              className="font-bold  uppercase"
-              style={{ fontSize: "16px", color: "gainsboro" }}
-            >
+            <h3 className="  " style={{ fontSize: "16px", color: "gainsboro" }}>
               Tổng cộng
             </h3>
           </div>
@@ -186,9 +183,9 @@ const Payment = () => {
                   style={{ borderBottom: "1px solid var(--color-gray-100)" }}
                 >
                   <h3>
-                    {item.Product.name} × {item.quantity}{" "}
+                    {item.productCart.name} × {item.quantity}{" "}
                   </h3>
-                  <h3>{item.Product.price}₫</h3>
+                  <h3>{item.productCart.price}₫</h3>
                 </div>
               );
             })}
@@ -197,15 +194,12 @@ const Payment = () => {
           className="flex justify-between items-center mb-2 "
           style={{ borderBottom: "2px solid var(--color-gray-100)" }}
         >
-          <h3
-            className="font-bold  uppercase"
-            style={{ fontSize: "16px", color: "gainsboro" }}
-          >
+          <h3 className="  " style={{ fontSize: "16px", color: "gainsboro" }}>
             Giảm giá
           </h3>
-          <h3 className="font-bold  uppercase" style={{ fontSize: "16px" }}>
-            {infocode && infocode.Voucher && infocode.Voucher.discount
-              ? infocode.Voucher.discount
+          <h3 className="  " style={{ fontSize: "16px" }}>
+            {infocode && infocode.voucherData && infocode.voucherData.discount
+              ? infocode.voucherData.discount
               : 0}{" "}
             đ
           </h3>
@@ -214,13 +208,10 @@ const Payment = () => {
           className="flex justify-between items-center mb-2 "
           style={{ borderBottom: "2px solid var(--color-gray-100)" }}
         >
-          <h3
-            className="font-bold  uppercase"
-            style={{ fontSize: "16px", color: "gainsboro" }}
-          >
+          <h3 className="  " style={{ fontSize: "16px", color: "gainsboro" }}>
             Tổng cộng
           </h3>
-          <h3 className="font-bold  uppercase" style={{ fontSize: "16px" }}>
+          <h3 className="  " style={{ fontSize: "16px" }}>
             {total} đ
           </h3>
         </div>
@@ -239,7 +230,7 @@ const Payment = () => {
           <TitleItem title={"Địa chỉ nhận hàng"} />
           <Input onChange={(e) => setAddress(e.target.value)} value={address} />
         </div>
-        <div className="my-2">
+        <div className="my-2 flex flex-col gap-2">
           <TitleItem title={"Thanh toán"} />
 
           <Radio.Group onChange={onChange} value={value}>

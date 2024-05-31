@@ -10,7 +10,7 @@ import "./input.scss";
 const Input = ({
   isPassword,
   isTextArea,
-  isSearch,
+  issearch,
   placeholder,
   className,
   ...props
@@ -58,7 +58,7 @@ const Input = ({
         },
       }}
     >
-      {isSearch ? (
+      {issearch ? (
         <InpuAnt.Search
           placeholder={placeholder}
           className={className}
@@ -84,7 +84,7 @@ Input.defaultProps = {
   placeholder: "",
   onChange: () => {},
   className: "",
-  isSearch: false,
+  issearch: false,
 };
 
 export default memo(Input);

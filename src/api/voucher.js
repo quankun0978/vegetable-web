@@ -13,10 +13,3 @@ export const addMyVoucher = (data) => {
 export const deleteMyVoucher = (code_id) => {
   return axios.post("/api/voucher/item/delete", { code_id });
 };
-// export const addItemToCart = (data) => {
-//   return axios.post("/api/cart/item/add", data);
-// };
-
-// export const deleteItemToCart = (product_id) => {
-//   return axios.post("/api/cart/item/delete", { product_id });
-// };

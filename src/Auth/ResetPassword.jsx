@@ -5,7 +5,7 @@ import { Form, Input, Spin } from "antd";
 
 import * as apiUser from "@/api/user";
 import { PATH } from "@/routes/path";
-import { Notification } from "@/common/Notification/Notification";
+import { Notification } from "@/common/notification/Notification";
 
 const ResetPassword = () => {
   const navigate = useNavigate();
@@ -47,7 +47,7 @@ const ResetPassword = () => {
     >
       <div className="p-5  md:p-20  h-screen w-auto flex flex-col md:flex-row items-center justify-center bg-gray-200">
         <div className="content text-3xl text-center md:text-left">
-          <h1 className="text-5xl text-blue-500 font-bold pb-5">TopWeb</h1>
+          <h1 className="text-5xl text-blue-500  pb-5">TopWeb</h1>
           <p className="hidden md:block">
             Đưa thực phẩm sạch , chất lượng cao đến với mọi nhà
           </p>

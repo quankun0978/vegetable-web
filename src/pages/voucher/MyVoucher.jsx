@@ -8,6 +8,8 @@ import Button from "@/common/button/Button";
 
 import { PATH } from "@/routes/path";
 
+import { IoDocumentsOutline } from "react-icons/io5";
+
 const columns = [
   {
     title: "Mã ",
@@ -32,7 +34,14 @@ const Voucher = () => {
         return {
           ...item,
           code_id: (
-            <Typography.Paragraph copyable>{item.code_id}</Typography.Paragraph>
+            <Typography.Paragraph
+              style={{ height: "100%" ,display:"flex" ,alignItems:"center" }}
+              copyable={{
+                icon: <IoDocumentsOutline color="#80b435" size={18} />,
+              }}
+            >
+              {item.code_id}
+            </Typography.Paragraph>
           ),
         };
       });

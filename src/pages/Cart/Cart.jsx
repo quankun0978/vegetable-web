@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { Notification } from "@/common/Notification/Notification";
+import { Notification } from "@/common/notification/Notification";
 import Table from "@/common/Table/Table.jsx";
 import Button from "@/common/button/Button";
 
@@ -64,7 +64,7 @@ const Cart = () => {
           dt.results &&
           dt.results.length > 0 &&
           dt.results.map((item, index) => {
-                return {
+            return {
               ...item,
 
               key: index,
@@ -72,23 +72,32 @@ const Cart = () => {
                 <div className="flex  flex-wrap  justify-center md:justify-start gap-2 items-center ">
                   <TiDeleteOutline
                     size={24}
-                    onClick={() =>
-                      handleDeleteItemToCart(item.ProductProductId)
-                    }
+                    onClick={() => handleDeleteItemToCart(item.product_id)}
                   />
                   <img
+                    loading="lazy"
                     alt=""
-                    src={item.Product.imgPath}
+                    src={
+                      item &&
+                      item.productCart &&
+                      item.productCart.imgPath &&
+                      item.productCart.imgPath
+                    }
                     width={76}
                     height={76}
                   />
-                  <p className="hidden md:block">{item.Product.name}</p>
+                  <p className="hidden md:block">
+                    {item &&
+                      item.productCart &&
+                      item.productCart.name &&
+                      item.productCart.name}
+                  </p>
                 </div>
               ),
               price:
-                item.Product.price > item.Product.price_sale
-                  ? item.Product.price_sale
-                  : item.Product.price,
+                item.productCart.price > item.productCart.price_sale
+                  ? item.productCart.price_sale
+                  : item.productCart.price,
               quantity: `${item.quantity}`,
               total: item.total,
             };

@@ -5,9 +5,9 @@ import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 
 import { Layout } from "antd";
-import Header from "@/common/Header/Header.jsx";
-import Footer from "@/common/Footer/Footer.jsx";
-import Chatbot from "@/common/Chatbot/Chatbot";
+import Header from "@/common/header/Header.jsx";
+import Footer from "@/common/footer/Footer.jsx";
+import Chatbot from "@/common/chatbot/Chatbot";
 
 import { setCurrentUser } from "@/redux/Reducer/userSlice.js";
 import { handleRefreshToken } from "@/redux/Action/authAction.js";
@@ -27,6 +27,7 @@ const { Content } = Layout;
 
 import "@/styles/style.scss";
 import "./main.scss";
+import Floatbutton from "@/common/floatbutton/Floatbutton";
 
 const Main = () => {
   const dispath = useDispatch();
@@ -40,17 +41,6 @@ const Main = () => {
   const [isShowButton, setIsShơwButton] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.innerHeight + window.scrollY;
-      const pageHeight = document.documentElement.scrollHeight;
-
-      if (scrollPosition >= pageHeight - 700) {
-        setIsShơwButton(true);
-      } else {
-        setIsShơwButton(false);
-      }
-    };
-
     window.addEventListener("scroll", handleScroll);
 
     return () => {
@@ -63,7 +53,6 @@ const Main = () => {
     dispath(handleGetListVoucher());
     dispath(handleGetListAllCodes());
     dispath(handleGetListNews());
-
     if (CurrentUser && CurrentUser.user_id) {
       dispath(handleGetUserById(CurrentUser.user_id));
       dispath(handleGetListMyVoucher(CurrentUser.user_id));
@@ -71,16 +60,16 @@ const Main = () => {
     }
   }, [CurrentUser]);
 
-  useEffect(() => {
-    if (refresh_token && !access_token && CurrentUser && CurrentUser.user_id) {
-      dispath(
-        handleRefreshToken({
-          refresh_token: refresh_token,
-          user_id: CurrentUser.user_id,
-        })
-      );
-    }
-  }, [refresh_token]);
+  // useEffect(() => {
+  //   if (refresh_token && !access_token && CurrentUser && CurrentUser.user_id) {
+  //     dispath(
+  //       handleRefreshToken({
+  //         refresh_token: refresh_token,
+  //         user_id: CurrentUser.user_id,
+  //       })
+  //     );
+  //   }
+  // }, [refresh_token]);
 
   useEffect(() => {
     if (isSuccess) {
@@ -88,11 +77,24 @@ const Main = () => {
     }
   }, [isSuccess]);
 
+  useEffect(() => {}, []);
+
+  const handleScroll = () => {
+    const scrollPosition = window.innerHeight + window.scrollY;
+    const pageHeight = document.documentElement.scrollHeight;
+
+    if (scrollPosition >= pageHeight - 700) {
+      setIsShơwButton(true);
+    } else {
+      setIsShơwButton(false);
+    }
+  };
+
   return (
     <Layout className=" bg-white  overflow-hidden h-full  lg:px-0  relative">
       <Header currentUser={CurrentUser} />
 
-      <Content style={{ height: "100%" }}>
+      <Content className="md:mt-44  md:ms-4 xl:ms-0" style={{ height: "100%" }}>
         <Layout className=" xl:mx-56 bg-white xl:max-w-6xl ">
           <div className="px-2 md:-mx-2 md:py-4 md:my-4 my-2">
             <Outlet />
@@ -103,7 +105,6 @@ const Main = () => {
       <div
         onClick={() => {
           window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-          setIsShơwButton(false);
         }}
         className={`float-btn ${
           isShowButton ? "end" : "start"
@@ -111,6 +112,7 @@ const Main = () => {
       >
         <IoIosArrowUp size={24} color="#fff" />
       </div>
+      {/* <Floatbutton /> */}
       {CurrentUser && CurrentUser.user_id ? <Chatbot /> : <div></div>}
     </Layout>
   );

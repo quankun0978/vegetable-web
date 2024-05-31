@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import SliderCustom from "@/common/content/slider/Slider";
-import TitleItem from "@/common/TitleItem/TitleItem";
+import TitleItem from "@/common/titleItem/TitleItem";
 import ItemProduct from "@/common/content/Item/ItemProduct";
 import ItemnNew from "@/common/content/Item/ItemNews";
 import { Spin } from "antd";
@@ -37,7 +37,7 @@ const Introduce = () => {
   return (
     <Spin spinning={loading} delay={500}>
       <div className="  max-w-4xl px-2">
-        <div className="mb-2">
+        <div className="mb-4">
           <SliderCustom
             breakPoint={{
               mobile: 1,
@@ -66,8 +66,8 @@ const Introduce = () => {
             ]}
           />
         </div>
-        <div className="mb-2">
-          <TitleItem title={"SẢN PHẨM MỚI"} />
+        <div className="mb-4">
+          <TitleItem color="black" title={"SẢN PHẨM MỚI"} />
           <SliderCustom
             breakPoint={{
               mobile: 2,
@@ -79,7 +79,7 @@ const Introduce = () => {
             data={data && data.length > 0 ? data : []}
           />
         </div>
-        <div className="mb-2">
+        <div className="mb-4">
           <TitleItem title={"ĐANG KHUYẾN MÃI"} />
           <SliderCustom
             breakPoint={{
@@ -93,7 +93,7 @@ const Introduce = () => {
           />
         </div>
 
-        <div className="mb-2 ">
+        <div className="mb-4 ">
           <TitleItem title={"HOA QUẢ SẠCH"} />
           <ItemProduct span={8} data={data && data.length > 0 ? data : []} />
           <div
@@ -106,7 +106,7 @@ const Introduce = () => {
             <Button text={"Xem thêm"} />
           </div>
         </div>
-        <div className="mb-2">
+        <div className="mb-4">
           <TitleItem title={"TIN TỨC"} />
           <ItemnNew data={dataNews} />
           <div

@@ -4,11 +4,11 @@ import { useSelector } from "react-redux";
 
 import { Avatar, Form, Rate, Space, Spin } from "antd";
 
-import { Notification } from "@/common/Notification/Notification";
+import { Notification } from "@/common/notification/Notification";
 import ItemProduct from "@/common/content/Item/ItemProduct";
 import Button from "@/common/button/Button";
-import Input from "@/common/Input/Input";
-import Inputnumber from "@/common/Input/Inputnumber";
+import Input from "@/common/input/Input";
+import Inputnumber from "@/common/input/Inputnumber";
 
 import { AiOutlineUser } from "react-icons/ai";
 
@@ -83,8 +83,8 @@ const DetailProduct = () => {
   const handleAddToCart = async () => {
     try {
       const res = await api.addItemToCart({
-        UserUserId: currentUser.user_id,
-        ProductProductId: id,
+        user_id: currentUser.user_id,
+        product_id: id,
         quantity: quantity,
         total:
           quantity *
@@ -105,14 +105,22 @@ const DetailProduct = () => {
       <div>
         <div className="flex flex-col md:flex-row justify-center gap-2 md:gap-0">
           <img
+            loading="lazy"
             className="xl:w-80 w-full h-80 pe-2"
             alt=""
             src={data && data.imgPath && data.imgPath}
           />
           <div className="flex flex-col gap-2 px-2">
-            <h1 className="text-3xl font-bold uppercase">
+            <h1 className="text-3xl  uppercase">
               {data && data.name && data.name}
             </h1>
+            <p>
+              {data &&
+                data.categoryData &&
+                data.categoryData &&
+                data.categoryData.label &&
+                data.categoryData.label}{" "}
+            </p>
             {data &&
               data.price &&
               data.price_sale &&
@@ -142,7 +150,7 @@ const DetailProduct = () => {
         </div>
 
         <div className="mt-4">
-          <h3 className="text-2xl font-bold">Đánh giá</h3>
+          <h3 className="text-2xl ">Đánh giá</h3>
           {dataComment &&
             dataComment.length > 0 &&
             dataComment.map((item) => {

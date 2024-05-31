@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router";
 
 import { Form, Input, Spin } from "antd";
-import { Notification } from "@/common/Notification/Notification";
+import { Notification } from "@/common/notification/Notification";
 
 import * as apiUser from "@/api/user";
 import { PATH } from "@/routes/path";
@@ -46,7 +46,7 @@ const ForgotPassword = () => {
     >
       <div className="p-5  md:p-20  h-screen w-auto flex flex-col md:flex-row items-center justify-center bg-gray-200">
         <div className="content text-3xl text-center md:text-left">
-          <h1 className="text-6xl text-blue-500 font-bold pb-5">
+          <h1 className="text-6xl text-blue-500  pb-5">
             <span style={{ color: "#FF9303" }}>Top</span>
             <span style={{ color: "black" }}>Web</span>
           </h1>

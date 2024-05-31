@@ -33,10 +33,9 @@ const DetailNews = () => {
           <FaArrowLeft />
           <h3>Quay lại</h3>
         </div>
-        <h3 className="text-2xl font-bold ">
-          {data && data.title && data.title}
-        </h3>
+        <h3 className="text-2xl  ">{data && data.title && data.title}</h3>
         <img
+          loading="lazy"
           src={data && data.imgPath && data.imgPath}
           alt=""
           style={{ height: "auto", width: "100%" }}

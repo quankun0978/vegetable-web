@@ -43,15 +43,16 @@ const ModalDetailOrder = ({ item, isModalOpen, setIsModalOpen }) => {
               name: (
                 <div className="flex gap-2 items-center">
                   <img
+                    loading="lazy"
                     alt=""
-                    src={item.Product.imgPath}
+                    src={item.productOrder.imgPath}
                     width={76}
                     height={76}
                   />
-                  <p>{item.Product.name}</p>
+                  <p>{item.productOrder.name}</p>
                 </div>
               ),
-              price: item.Product.price,
+              price: item.productOrder.price,
               quantity: item.quantity,
               total: item.total,
             };

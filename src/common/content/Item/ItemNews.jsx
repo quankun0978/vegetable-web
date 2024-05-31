@@ -25,11 +25,21 @@ const ItemNewChild = ({ item, width, height }) => {
 
   return (
     <div className={`w-full  max-w-full  gap-1 pe-2 `}>
-      {/* <img src={image} alt="" /> */}
+      {/* <img loading="lazy" src={image} alt="" /> */}
       <div className="slider-item " style={style}></div>
       <div className="p-2 -mx-2">
         <p style={{ marginBottom: "8px" }}>
           {item && item.title && item.title}
+        </p>
+
+        <p
+          style={{
+            marginBottom: "8px",
+            maxHeight: "65px",
+            overflowY: "hidden",
+          }}
+        >
+          {item && item.description && item.description}
         </p>
 
         <Button

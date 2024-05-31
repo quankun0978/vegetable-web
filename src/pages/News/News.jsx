@@ -16,7 +16,7 @@ const News = () => {
   useEffect(() => {
     if (listNews && listNews.length > 0) {
       const dt = listNews.slice(0, 3);
-      setLoading(false);  
+      setLoading(false);
       setData(dt);
     }
   }, [listNews]);
@@ -36,12 +36,12 @@ const News = () => {
             data.map((item, index) => {
               return (
                 <Col key={index} span={24} className="p-2 w-full">
-                  <div className={` text-center  flex gap-1  w-full `}>
-                    {/* <img src={imgPath} alt="" /> */}
-                    <img
+                  <div className={` text-center md:flex gap-1  w-full `}>
+                    {/* <img loading="lazy" src={imgPath} alt="" /> */}
+                    <img loading="lazy"
                       alt=""
                       src={item.imgPath && item.imgPath}
-                      style={{ height: "200px", width: "250px" }}
+                      className="h-52 md:w-64 w-full"
                     />
                     <div className="m-2 text-left">
                       <p

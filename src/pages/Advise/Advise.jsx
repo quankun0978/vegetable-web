@@ -1,13 +1,12 @@
-import contact1 from "@/assets/img/hinh-anh-rau-cu_112154579.jpg";
+import AdviseImg from "@/assets/img/hinh-anh-ve-cac-loai-rau-cu-qua.jpg";
 
 const Advise = () => {
   return (
     <div className="row">
       <div className="col-md-6">
         <img
-          src={
-            "https://img1.kienthucvui.vn/uploads/2019/10/30/hinh-anh-ve-cac-loai-rau-cu-qua_112154673.jpg"
-          }
+          loading="lazy"
+          src={AdviseImg}
           alt="Rau củ quả"
           className="img-fluid"
         />

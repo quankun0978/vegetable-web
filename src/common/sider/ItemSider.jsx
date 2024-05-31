@@ -51,7 +51,7 @@ const ItemSider = ({
                 <div key={index}>
                   {isImage ? (
                     <div className="items-center flex gap-2 mb-2 sider-menu-item-image pb-2">
-                      <img
+                      <img loading="lazy"
                         style={{ height: "60px", width: "60px" }}
                         src={
                           ItemSider && ItemSider.imgPath && ItemSider.imgPath

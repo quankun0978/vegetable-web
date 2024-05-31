@@ -41,8 +41,9 @@ const SliderCustom = ({ items, isBandner, data, isShowDots, breakPoint }) => {
     },
   };
   return (
-    <div>
+    <div className="-mx-2">
       <Carousel
+
         customRightArrow={<ArrowRight isBandner={isBandner} />}
         customLeftArrow={<ArrowLeft isBandner={isBandner} />}
         additionalTransfrom={0}
@@ -82,14 +83,12 @@ const SliderCustom = ({ items, isBandner, data, isShowDots, breakPoint }) => {
 };
 const ItemSlider = ({ item, isBandner }) => {
   const navigate = useNavigate();
-  const listAllCodes = useSelector((state) => state.app.listAllCodes);
-  const [data, setData] = useState({});
-  useEffect(() => {
-    if (listAllCodes && listAllCodes.length > 0) {
-      const dt = listAllCodes.find((i) => i.value === item.category);
-      setData(dt);
-    }
-  }, [listAllCodes]);
+  // useEffect(() => {
+  //   if (listAllCodes && listAllCodes.length > 0) {
+  //     const dt = listAllCodes.find((i) => i.value === item.category);
+  //     setData(dt);
+  //   }
+  // }, [listAllCodes]);
 
   const style = !isBandner
     ? {
@@ -117,7 +116,7 @@ const ItemSlider = ({ item, isBandner }) => {
       style={style}
       className={`item-slider gap-2 w-full m-auto  flex flex-col justify-center items-center bg-red-400  `}
     >
-      <h1 className="text-white uppercase font-bold text-4xl text-center">
+      <h1 className="text-white uppercase  text-4xl text-center">
         Rau sạch hoa quả sạch
       </h1>
       <h3 className="mx-2 block text-white ">
@@ -153,7 +152,14 @@ const ItemSlider = ({ item, isBandner }) => {
           }}
         />
       </div>
-      <p className="uppercase">{data && data.label && data.label} </p>
+      <p className="uppercase">
+        {" "}
+        {item &&
+          item.categoryData &&
+          item.categoryData &&
+          item.categoryData.label &&
+          item.categoryData.label}{" "}
+      </p>
       <p>{item && item.name && item.name}</p>
 
       <div className="flex flex-col justify-center">

@@ -1,10 +1,15 @@
-import contact1 from "@/assets/img/hinh-anh-rau-cu_112154579.jpg";
+import AboutImg from "@/assets/img/hinh-anh-rau-cu.jpg";
 
 const About = () => {
   return (
     <div className="row">
       <div className="col-md-6">
-        <img src={contact1} alt="Rau củ quả" className="img-fluid" />
+        <img
+          loading="lazy"
+          src={AboutImg}
+          alt="Rau củ quả"
+          className="img-fluid"
+        />
       </div>
       <div className="col-md-6 mt-2">
         <ul>

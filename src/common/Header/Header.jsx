@@ -1,4 +1,4 @@
-import { memo, useEffect, useState } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -15,7 +15,7 @@ import {
   Space,
 } from "antd";
 
-import Input from "@/common/Input/Input.jsx";
+import Input from "@/common/input/Input.jsx";
 import { Header } from "antd/es/layout/layout";
 import Button from "@/common/button/Button";
 
@@ -62,9 +62,13 @@ const items = [
 const HeaderCustom = () => {
   const navigate = useNavigate();
   const dispath = useDispatch();
+  let location = useLocation();
+  const elementHeader = useRef();
+  const elementBottomHeader = useRef();
+
   const listProduct = useSelector((state) => state.product.listProduct);
   const currentUser = useSelector((state) => state.user.currentUser);
-  let location = useLocation();
+  const dataInfo = useSelector((state) => state.user.dataInfo);
 
   const [current, setCurrent] = useState(location.pathname);
   const [isShowToggle, setIsShowToggle] = useState(false);
@@ -76,6 +80,14 @@ const HeaderCustom = () => {
       setCurrent(location.pathname);
     }
   }, [location]);
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   const handleSearch = (value) => {
     setOptions(value ? searchResult(value) : []);
@@ -100,7 +112,13 @@ const HeaderCustom = () => {
                 alignItems: "center",
               }}
             >
-              <img src={item.imgPath} width={40} height={40} alt="" />
+              <img
+                loading="lazy"
+                src={item.imgPath}
+                width={40}
+                height={40}
+                alt=""
+              />
               <span>{item.name}</span>
             </div>
           ),
@@ -137,7 +155,7 @@ const HeaderCustom = () => {
         to={PATH.LICH_SU_MUA_HANG}
         className="  hover: cursor-pointer p-2 rounded-md "
       >
-        Lịch sử mua hàng
+        Lịch sử đặt hàng
       </Link>
 
       <Link
@@ -148,6 +166,27 @@ const HeaderCustom = () => {
       </Link>
     </div>
   );
+
+  const handleScroll = () => {
+    const scrollPosition = window.scrollY;
+    if (
+      elementHeader &&
+      elementHeader.current &&
+      elementHeader.current.offsetHeight
+    ) {
+      elementHeader.current.style.transition = "0.4s";
+
+      if (elementBottomHeader && elementBottomHeader.current) {
+        if (scrollPosition >= elementHeader.current.offsetHeight) {
+          elementHeader.current.style.transform = "translateY(-100%)";
+          elementBottomHeader.current.style.transform = "translateY(0))";
+          elementBottomHeader.current.style.position = "fixed";
+        } else {
+          elementHeader.current.style.transform = "translateY(0 )";
+        }
+      }
+    }
+  };
 
   const onClick = (e) => {
     setCurrent(e.key);
@@ -164,19 +203,25 @@ const HeaderCustom = () => {
   };
 
   return (
-    <Header className="h-auto bg-white p-0 header-app">
+    <Header
+      ref={elementHeader}
+      className="h-auto bg-white p-0 header-app md:fixed z-50 top-0 right-0 left-0"
+    >
       <div>
-        <div className="py-4 xl:mx-56  xl:max-w-6xl ">
-          <Row className=" items-center gap-2 md:gap-0  px-2">
+        <div
+          style={{ transition: "0.4s" }}
+          className="md:py-4 pt-4 xl:mx-56  xl:max-w-6xl  "
+        >
+          <Row className=" items-center gap-2 md:gap-0  px-2 ">
             <Col md={8} sm={24} className="w-full">
               <div className="flex justify-between w-full items-center">
                 <IoMenu
                   onClick={() => setIsShowToggle(true)}
                   size={30}
-                  className=" md:hidden "
+                  className=" md:hidden"
                 />
-
                 <img
+                  loading="lazy"
                   className="h-11 lg:h-auto"
                   src={logo}
                   alt=""
@@ -192,7 +237,7 @@ const HeaderCustom = () => {
             <Col
               md={8}
               sm={24}
-              className="md:pe-8 w-full h-10 lg:w-auto lg:flex items-center mb-4 md:mb-0"
+              className="md:pe-8 w-full  lg:w-auto lg:flex items-center mb-4 md:mb-0"
             >
               <AutoComplete
                 popupMatchSelectWidth={252}
@@ -208,7 +253,7 @@ const HeaderCustom = () => {
                   className={"w-full"}
                   placeholder="Tìm kiếm..."
                   allowClear
-                  isSearch={true}
+                  issearch={true}
                   size="large"
                   enterButton
                 />
@@ -226,7 +271,7 @@ const HeaderCustom = () => {
                       <Avatar size={40} icon={<PiUser />} />
                     </Popover>
                     <div className="hidden xl:block">
-                      {currentUser && currentUser.name}
+                      {dataInfo && dataInfo.name}
                     </div>
                   </Space>
                 ) : (
@@ -257,7 +302,10 @@ const HeaderCustom = () => {
             </Col>
           </Row>
         </div>
-        <div style={{ background: "#80B435" }}>
+        <div
+          ref={elementBottomHeader}
+          style={{ background: "#80B435", transition: "0.3s", width: "100%" }}
+        >
           <Menu
             onClick={onClick}
             className="xl:mx-56 md:mx-4  md:block hidden  max-w-6xl header-menu"

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { handleGetUserById } from "@/redux/Action/userAction";
 
 import { Col, Modal, Row } from "antd";
-import { Notification } from "@/common/Notification/Notification";
+import { Notification } from "@/common/notification/Notification";
 import Button from "@/common/button/Button";
 
 import { MdOutlineSell } from "react-icons/md";
@@ -36,7 +36,7 @@ const Voucher = () => {
             user_id: dataInfo.user_id,
             voucher_id: item.voucher_id,
           });
-          const result = await await apiUser.updateUserById({
+          const result = await apiUser.updateUserById({
             user_id: dataInfo.user_id,
             point: dataInfo.point - item.point,
           });
@@ -64,7 +64,7 @@ const Voucher = () => {
 
   return (
     <div className="mt-4 -mx-2 flex flex-col gap-2 ">
-      <h3 className="text-xl font-bold text-center ">Ưu đãi dành cho bạn</h3>
+      <h3 className="text-xl  text-center ">Ưu đãi dành cho bạn</h3>
       <div>
         Số điểm hiện tại của bạn là : {dataInfo.point && dataInfo.point} điểm
       </div>
@@ -90,7 +90,12 @@ const Voucher = () => {
                   <div className="flex justify-between">
                     <div className="flex gap-2 items-center">
                       <MdOutlineSell />
-                      <h3>{item.voucher_id}</h3>
+                      <h3>
+                        {item &&
+                          item.voucherAllcodes &&
+                          item.voucherAllcodes.label &&
+                          item.voucherAllcodes.label}
+                      </h3>
                     </div>
                     <h3>{item.point} điểm</h3>
                   </div>

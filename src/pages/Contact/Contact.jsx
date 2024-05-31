@@ -1,9 +1,7 @@
-import { useEffect, useState } from "react";
+import { Col, Row } from "antd";
 
-import { Col, Row, Spin } from "antd";
-
-import Googlemap from "@/common/Googlemap/Googlemap";
-import ItemSider from "@/common/sider/Item";
+import Googlemap from "@/common/googlemap/Googlemap";
+import ItemSider from "@/common/sider/ItemSider";
 
 import { FaFacebookSquare, FaPhoneAlt } from "react-icons/fa";
 import { SiZalo } from "react-icons/si";

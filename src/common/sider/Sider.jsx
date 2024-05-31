@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 
 import Sider from "antd/es/layout/Sider";
-import ItemSider from "./Item";
+import ItemSider from "./ItemSider";
 
 import { PATH } from "@/routes/path";
 

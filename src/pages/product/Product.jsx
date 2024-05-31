@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { Menu, Spin } from "antd";
 
 import ItemProduct from "@/common/content/Item/ItemProduct";
-import Select from "@/common/Select/Select";
+import Select from "@/common/select/Select";
 
 const items = [
   {

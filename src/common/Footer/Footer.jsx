@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { Col, Row, Layout } from "antd";
 
-import ItemSider from "@/common/sider/Item";
+import ItemSider from "@/common/sider/ItemSider";
 import Button from "@/common/button/Button";
 
 import { SiZalo } from "react-icons/si";
@@ -16,7 +16,7 @@ const Footer = () => {
   return (
     <Layout.Footer style={{ padding: 0 }}>
       <div className="bg-black ">
-        <div className="xl:mx-56    py-8  px-2 mx-2  md:mx-4">
+        <div className="xl:mx-56    py-8 h-80  px-2 mx-2  md:mx-4">
           <Row className="-mx-2  ">
             <Col md={8} className="w-full mb-2 " sm={24}>
               <div>

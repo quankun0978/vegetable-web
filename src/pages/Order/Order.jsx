@@ -37,7 +37,6 @@ const Order = () => {
   const navigate = useNavigate();
 
   const currentUser = useSelector((state) => state.user.currentUser);
-  const listAllCodes = useSelector((state) => state.app.listAllCodes);
 
   const [data, setData] = useState();
   const [item, setItem] = useState();
@@ -56,14 +55,6 @@ const Order = () => {
     if (currentUser && currentUser.user_id) {
       const dt = await api.getOrderById(currentUser.user_id);
       if (dt && dt && dt.results) {
-        const dataStatus =
-          listAllCodes && listAllCodes.length > 0
-            ? listAllCodes.filter((item) => item.type === "status")
-            : [];
-        const dataPayment =
-          listAllCodes && listAllCodes.length > 0
-            ? listAllCodes.filter((item) => item.type === "payment")
-            : [];
         const dtTable =
           dt &&
           dt.results &&
@@ -73,17 +64,20 @@ const Order = () => {
               ...item,
               key: index,
               status:
-                dataStatus &&
-                dataStatus.length > 0 &&
-                dataStatus.find((i) => i.value === item.status).label,
+                item &&
+                item.statusData &&
+                item.statusData.label &&
+                item.statusData.label,
               detail: (
                 <Link
                   onClick={() =>
                     handleShowModal({
                       ...item,
-                      payment: dataPayment.find(
-                        (i) => i.value === item.payment_id
-                      ).label,
+                      payment:
+                        item &&
+                        item.paymentData &&
+                        item.paymentData.label &&
+                        item.paymentData.label,
                     })
                   }
                 >

@@ -11,16 +11,13 @@ import { PATH } from "@/routes/path";
 
 const ItemChild = ({ item, width, height }) => {
   const navigate = useNavigate();
-  const listAllCodes = useSelector((state) => state.app.listAllCodes);
 
-  const [data, setData] = useState({});
-
-  useEffect(() => {
-    if (listAllCodes && listAllCodes.length > 0) {
-      const dt = listAllCodes.find((i) => i.value === item.category);
-      setData(dt);
-    }
-  }, [listAllCodes]);
+  // useEffect(() => {
+  //   if (listAllCodes && listAllCodes.length > 0) {
+  //     const dt = listAllCodes.find((i) => i.value === item.category);
+  //     setData(dt);
+  //   }
+  // }, [listAllCodes]);
 
   const style = {
     position: "relative",
@@ -37,7 +34,7 @@ const ItemChild = ({ item, width, height }) => {
 
   return (
     <div className={` text-center  flex gap-1 items-center w-80 `}>
-      {/* <img src={imgPath} alt="" /> */}
+      {/* <img loading="lazy" src={imgPath} alt="" /> */}
       <div className="slider-item" style={style}>
         <Button
           className="btn-detail"
@@ -56,7 +53,13 @@ const ItemChild = ({ item, width, height }) => {
         />
       </div>
       <div className="m-2">
-        <p className="uppercase">{data && data.label && data.label} </p>
+        <p className="uppercase">
+          {item &&
+            item.categoryData &&
+            item.categoryData &&
+            item.categoryData.label &&
+            item.categoryData.label}{" "}
+        </p>
         <p>{item && item.name && item.name}</p>
 
         <p

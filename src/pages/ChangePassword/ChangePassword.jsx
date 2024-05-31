@@ -2,7 +2,7 @@ import { memo, useState } from "react";
 import { useSelector } from "react-redux";
 
 import { Button, Col, Form, Input, Row } from "antd";
-import { Notification } from "@/common/Notification/Notification";
+import { Notification } from "@/common/notification/Notification";
 
 import * as apiUser from "@/api/user";
 
@@ -55,9 +55,7 @@ const ChangePassword = () => {
               layout="vertical"
               form={form}
             >
-              <h3 style={{ paddingBottom: "10px" }} className="font-bold">
-                Đổi mật khẩu
-              </h3>
+              <h3 style={{ paddingBottom: "10px" }}>Đổi mật khẩu</h3>
               <Row>
                 <Col md={24}>
                   <div style={{}}>
