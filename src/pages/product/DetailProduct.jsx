@@ -55,8 +55,8 @@ const DetailProduct = () => {
       if (res && res && res.results) {
         setDataComment(res.results);
       }
-      if (dt && dt && dt.results && dt.results.data) {
-        setData(dt.results.data);
+      if (dt && dt && dt.results) {
+        setData(dt.results);
       }
     }
   };

@@ -7,8 +7,8 @@ export const handleGetAllProduct = createAsyncThunk(
   async () => {
     const data = await getAllProduct();
 
-    if (data && data.results && data.results.data.length > 0) {
-      return data.results.data;
+    if (data && data.results && data.results.length > 0) {
+      return data.results;
     }
     return [];
   }
