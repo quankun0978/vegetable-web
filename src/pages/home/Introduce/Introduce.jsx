@@ -1,15 +1,19 @@
-import { useEffect, useState } from "react";
+import { lazy, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import SliderCustom from "@/common/content/slider/Slider";
-import TitleItem from "@/common/titleItem/TitleItem";
-import ItemProduct from "@/common/content/Item/ItemProduct";
-import ItemnNew from "@/common/content/Item/ItemNews";
+// import SliderCustom from "@/common/content/slider/Slider";
+// import ItemProduct from "@/common/content/Item/ItemProduct";
+// import ItemnNew from "@/common/content/Item/ItemNews";
 import { Spin } from "antd";
 import Button from "@/common/button/Button";
 
 import { PATH } from "@/routes/path";
+
+const TitleItem = lazy(() => import("@/common/titleItem/TitleItem"));
+const SliderCustom = lazy(() => import("@/common/content/slider/Slider"));
+const ItemProduct = lazy(() => import("@/common/content/Item/ItemProduct"));
+const ItemnNew = lazy(() => import("@/common/content/Item/ItemNews"));
 
 const Introduce = () => {
   const navigate = useNavigate();

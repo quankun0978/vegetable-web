@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 import { Col, Row } from "antd";
 import PropTypes from "prop-types";
@@ -11,13 +10,6 @@ import { PATH } from "@/routes/path";
 
 const ItemChild = ({ item, width, height }) => {
   const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   if (listAllCodes && listAllCodes.length > 0) {
-  //     const dt = listAllCodes.find((i) => i.value === item.category);
-  //     setData(dt);
-  //   }
-  // }, [listAllCodes]);
 
   const style = {
     position: "relative",

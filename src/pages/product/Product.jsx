@@ -1,10 +1,12 @@
-import { useEffect, useRef, useState } from "react";
+import { lazy, useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 
 import { Menu, Spin } from "antd";
 
-import ItemProduct from "@/common/content/Item/ItemProduct";
+// import ItemProduct from "@/common/content/Item/ItemProduct";
 import Select from "@/common/select/Select";
+
+const ItemProduct = lazy(() => import("@/common/content/Item/ItemProduct"));
 
 const items = [
   {

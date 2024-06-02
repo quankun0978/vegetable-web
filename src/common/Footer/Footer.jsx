@@ -1,22 +1,25 @@
-import { FaFacebookSquare, FaPhoneAlt } from "react-icons/fa";
+import { lazy } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Col, Row, Layout } from "antd";
 
-import ItemSider from "@/common/sider/ItemSider";
+// import ItemSider from "@/common/sider/ItemSider";
 import Button from "@/common/button/Button";
 
 import { SiZalo } from "react-icons/si";
+import { FaFacebookSquare, FaPhoneAlt } from "react-icons/fa";
 import { MdOutlineMail } from "react-icons/md";
 
 import { PATH } from "@/routes/path";
+
+const ItemSider = lazy(() => import("@/common/sider/ItemSider"));
 
 const Footer = () => {
   const navigate = useNavigate();
   return (
     <Layout.Footer style={{ padding: 0 }}>
       <div className="bg-black ">
-        <div className="xl:mx-56    py-8 h-80  px-2 mx-2  md:mx-4">
+        <div className="xl:mx-56    py-8 md:h-80  px-2 mx-2  md:mx-4">
           <Row className="-mx-2  ">
             <Col md={8} className="w-full mb-2 " sm={24}>
               <div>
@@ -24,7 +27,7 @@ const Footer = () => {
                   isImage={false}
                   isparagraph={true}
                   paragraph={
-                    "Công ty TNHH Việt Á là nhà cung cấp các loại Rau sạch, hạt giống hoa, cây ăn quả đảm bảo nguồn gốc xuất xứ, uy tín, an toàn vệ sinh thực phẩm là trên hết. Chúng tôi sẵn sàng tư vấn cho các bạn trồng cây, trồng rau, hoa đạt chất lượng tốt nhất."
+                    "Công ty của chúng tôi là nhà cung cấp các loại Rau sạch, hạt giống hoa, cây ăn quả đảm bảo nguồn gốc xuất xứ, uy tín, an toàn vệ sinh thực phẩm là trên hết. Chúng tôi sẵn sàng tư vấn cho các bạn trồng cây, trồng rau, hoa đạt chất lượng tốt nhất."
                   }
                   title={"Rau hoa quả"}
                   color={"var(--color-white)"}
@@ -32,6 +35,10 @@ const Footer = () => {
                   colorItem={"rgba(255,255,255,0.3)"}
                 />
                 <Button
+                  onClick={() => {
+                    navigate(PATH.SAN_PHAM);
+                    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+                  }}
                   text={" XEM THÊM"}
                   style={{
                     fontSize: "1.15em",
@@ -74,20 +81,13 @@ const Footer = () => {
                     value: "pea",
                   },
                   {
-                    label: "Hạt giống hoa",
-                    value: "pea",
+                    label: "Hoa quả",
+                    value: "fruit",
                   },
+
                   {
-                    label: "Hạt giống hoa",
-                    value: "pea",
-                  },
-                  {
-                    label: "Hạt giống hoa",
-                    value: "pea",
-                  },
-                  {
-                    label: "Cây giống",
-                    value: "pea",
+                    label: "Rau củ",
+                    value: "vetgetable",
                   },
                 ]}
                 isImage={false}

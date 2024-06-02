@@ -1,17 +1,19 @@
-import { memo, useEffect, useState } from "react";
+import { lazy, memo } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 import Carousel from "react-multi-carousel";
 import PropTypes from "prop-types";
 
-import { ArrowRight, ArrowLeft } from "../../arrow/Arrow";
+import { ArrowRight, ArrowLeft } from "@/common/arrow/Arrow";
 import Button from "@/common/button/Button";
 
 import { PATH } from "@/routes/path";
 
 import "react-multi-carousel/lib/styles.css";
 import "./slider.scss";
+
+// const ArrowRight = lazy(() => import("@/common/arrow/Arrow"));
+// const ArrowLeft = lazy(() => import("@/common/arrow/Arrow"));
 
 const SliderCustom = ({ items, isBandner, data, isShowDots, breakPoint }) => {
   const responsive = {
@@ -43,7 +45,6 @@ const SliderCustom = ({ items, isBandner, data, isShowDots, breakPoint }) => {
   return (
     <div className="-mx-2">
       <Carousel
-
         customRightArrow={<ArrowRight isBandner={isBandner} />}
         customLeftArrow={<ArrowLeft isBandner={isBandner} />}
         additionalTransfrom={0}
@@ -83,12 +84,6 @@ const SliderCustom = ({ items, isBandner, data, isShowDots, breakPoint }) => {
 };
 const ItemSlider = ({ item, isBandner }) => {
   const navigate = useNavigate();
-  // useEffect(() => {
-  //   if (listAllCodes && listAllCodes.length > 0) {
-  //     const dt = listAllCodes.find((i) => i.value === item.category);
-  //     setData(dt);
-  //   }
-  // }, [listAllCodes]);
 
   const style = !isBandner
     ? {

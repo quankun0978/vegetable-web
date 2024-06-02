@@ -75,7 +75,7 @@ Input.propTypes = {
   placeholder: PropTypes.string,
   onChange: PropTypes.func,
   className: PropTypes.string,
-  isSearch: PropTypes.bool,
+  issearch: PropTypes.bool,
   isTextArea: PropTypes.bool,
   isPassword: PropTypes.bool,
 };

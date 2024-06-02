@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import { Typography } from "antd";
+import { Spin, Typography } from "antd";
 import Table from "@/common/Table/Table.jsx";
 import Button from "@/common/button/Button";
 
@@ -23,6 +23,7 @@ const Voucher = () => {
   const listMyVoucher = useSelector((state) => state.voucher.listMyVoucher);
 
   const [data, setData] = useState();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     handleGetData();
@@ -35,7 +36,7 @@ const Voucher = () => {
           ...item,
           code_id: (
             <Typography.Paragraph
-              style={{ height: "100%" ,display:"flex" ,alignItems:"center" }}
+              style={{ height: "100%", display: "flex", alignItems: "center" }}
               copyable={{
                 icon: <IoDocumentsOutline color="#80b435" size={18} />,
               }}
@@ -46,36 +47,39 @@ const Voucher = () => {
         };
       });
       setData(dt);
+      setLoading(false);
     }
   };
   return (
-    <div className="py-12 flex flex-col justify-center w-full ">
-      {data && data.length > 0 ? (
-        <Table
-          pagination={false}
-          columns={columns}
-          dataSource={data}
-          scroll={{
-            y: 350,
-            x: 300,
-          }}
-        />
-      ) : (
-        <h3 className="text-center">Bạn chưa có mã giảm giá nào.</h3>
-      )}
-      <div className="flex justify-between flex-wrap gap-2 items-center mt-4">
-        <div
-          className={`flex gap-2  ${
-            data && data.length > 0 ? "" : "justify-center w-full "
-          }`}
-        >
-          <Button
-            text={"Tiếp tục mua hàng"}
-            onClick={() => navigate(PATH.SAN_PHAM)}
+    <Spin spinning={loading}>
+      <div className="flex flex-col justify-center w-full ">
+        {data && data.length > 0 ? (
+          <Table
+            pagination={false}
+            columns={columns}
+            dataSource={data}
+            scroll={{
+              y: 350,
+              x: 300,
+            }}
           />
+        ) : (
+          <h3 className="text-center">Bạn chưa có mã giảm giá nào.</h3>
+        )}
+        <div className="flex justify-between flex-wrap gap-2 items-center mt-4">
+          <div
+            className={`flex gap-2  ${
+              data && data.length > 0 ? "" : "justify-center w-full "
+            }`}
+          >
+            <Button
+              text={"Tiếp tục mua hàng"}
+              onClick={() => navigate(PATH.SAN_PHAM)}
+            />
+          </div>
         </div>
       </div>
-    </div>
+    </Spin>
   );
 };
 export default Voucher;

@@ -22,18 +22,12 @@ const InputNumber = ({ className, ...props }) => {
 };
 
 InputNumber.propTypes = {
-  placeholder: PropTypes.string,
   onChange: PropTypes.func,
   className: PropTypes.string,
-  isSearch: PropTypes.bool,
-  isTextArea: PropTypes.bool,
 };
 
 InputNumber.defaultProps = {
-  placeholder: "",
-  onChange: () => {},
   className: "",
-  isSearch: false,
 };
 
 export default memo(InputNumber);

@@ -8,6 +8,8 @@ import Button from "@/common/button/Button";
 
 import * as api from "@/api/orders.js";
 import { PATH } from "@/routes/path";
+import { formatDate } from "@/ultils/helper.js";
+import { Spin } from "antd";
 
 const columns = [
   {
@@ -24,8 +26,9 @@ const columns = [
   },
 
   {
-    title: "Ngày thanh toán",
+    title: "Ngày đặt hàng ",
     dataIndex: "createdAt",
+    render: (createdAt) => `${formatDate(createdAt)}`,
   },
   {
     title: "Chi tiết",
@@ -39,6 +42,7 @@ const Order = () => {
   const currentUser = useSelector((state) => state.user.currentUser);
 
   const [data, setData] = useState();
+  const [loading, setLoading] = useState(true);
   const [item, setItem] = useState();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -87,39 +91,45 @@ const Order = () => {
             };
           });
         setData(dtTable);
+        setLoading(false);
       }
     }
   };
   return (
-    <div className="py-4 flex flex-col justify-center w-full">
-      {data && data.length > 0 ? (
-        <Table
-          pagination={false}
-          columns={columns}
-          dataSource={data}
-          scroll={{
-            y: 350,
-            x: 750,
-          }}
-        />
-      ) : (
-        <h3 className="text-center">Bạn chưa có hóa đơn nào.</h3>
-      )}
-      <div className="flex justify-between items-center mt-4">
-        <div
-          className={`flex gap-2  ${
-            data && data.length > 0 ? "" : "justify-center w-full "
-          }`}
-        >
-          <Button text={"Quay lại"} onClick={() => navigate(PATH.TRANG_CHU)} />
+    <Spin spinning={loading}>
+      <div className="py-4 flex flex-col justify-center w-full">
+        {data && data.length > 0 ? (
+          <Table
+            pagination={false}
+            columns={columns}
+            dataSource={data}
+            scroll={{
+              y: 350,
+              x: 750,
+            }}
+          />
+        ) : (
+          <h3 className="text-center">Bạn chưa có hóa đơn nào.</h3>
+        )}
+        <div className="flex justify-between items-center mt-4">
+          <div
+            className={`flex gap-2  ${
+              data && data.length > 0 ? "" : "justify-center w-full "
+            }`}
+          >
+            <Button
+              text={"Quay lại"}
+              onClick={() => navigate(PATH.TRANG_CHU)}
+            />
+          </div>
         </div>
+        <ModalDetailOrder
+          isModalOpen={isModalOpen}
+          setIsModalOpen={setIsModalOpen}
+          item={item}
+        />
       </div>
-      <ModalDetailOrder
-        isModalOpen={isModalOpen}
-        setIsModalOpen={setIsModalOpen}
-        item={item}
-      />
-    </div>
+    </Spin>
   );
 };
 

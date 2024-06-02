@@ -93,7 +93,9 @@ const DetailProduct = () => {
       if (res && res.results) {
         Notification.success("Thêm thành công");
       }
-    } catch (e) {}
+    } catch (e) {
+      Notification.error("Vui lòng đăng nhập để mua hàng");
+    }
   };
 
   const handleComment = () => {

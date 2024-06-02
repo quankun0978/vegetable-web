@@ -15,7 +15,7 @@ const PrivateRoute = ({ component, isLogin, isShow }) => {
   }
   if (isShow && !refresh_token && !access_token) {
     return (
-      <div className="flex justify-center pt-5 py-28">Vui lòng đăng nhập</div>
+      <div className="flex justify-center pt-5 py-28 ">Vui lòng đăng nhập</div>
     );
   }
 

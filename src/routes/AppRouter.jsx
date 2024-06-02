@@ -1,30 +1,41 @@
 import { Navigate, useRoutes } from "react-router-dom";
-
-import Main from "@/pages/Main";
-import Login from "@/Auth/Login";
-import Register from "@/Auth/Register";
-import PrivateRoute from "@/Auth/PrivateRoute";
-import DetailProduct from "@/pages/product/DetailProduct";
-import Home from "@/pages/home/Home";
-import InfoUser from "@/pages/InfoUser/InfoUser.jsx";
-import Introduce from "@/pages/home/Introduce/Introduce";
-import ChangePassword from "@/pages/ChangePassword/ChangePassword";
-import Cart from "@/pages/Cart/Cart";
-import Product from "@/pages/product/Product";
-import Payment from "@/pages/Payment/Payment";
-import Order from "@/pages/Order/Order";
-import MyVoucher from "@/pages/voucher/MyVoucher";
-import Voucher from "@/pages/voucher/Voucher";
-import DetailNews from "@/pages/News/DetailNews";
-import News from "@/pages/News/News";
-import ForgotPassword from "@/Auth/ForgotPassword";
-import ResetPassword from "@/Auth/ResetPassword";
-
 import { PATH } from "./path";
-import Contact from "@/pages/Contact/Contact";
-import About from "@/pages/About/About";
-import Advise from "@/pages/Advise/Advise";
-import Healthy from "@/pages/healthy/Healthy";
+import { lazy } from "react";
+
+import PrivateRoute from "@/Auth/PrivateRoute";
+
+const Main = lazy(() => import("@/pages/Main"));
+const DetailProduct = lazy(() => import("@/pages/product/DetailProduct"));
+const Home = lazy(() => import("@/pages/home/Home"));
+const InfoUser = lazy(() => import("@/pages/InfoUser/InfoUser.jsx"));
+const Introduce = lazy(() => import("@/pages/home/Introduce/Introduce"));
+const ChangePassword = lazy(() =>
+  import("@/pages/ChangePassword/ChangePassword")
+);
+const Cart = lazy(() => import("@/pages/Cart/Cart"));
+const Product = lazy(() => import("@/pages/product/Product"));
+const Payment = lazy(() => import("@/pages/Payment/Payment"));
+const Order = lazy(() => import("@/pages/Order/Order"));
+const Login = lazy(() => import("@/Auth/Login"));
+const MyVoucher = lazy(() => import("@/pages/voucher/MyVoucher"));
+
+const Voucher = lazy(() => import("@/pages/voucher/Voucher"));
+
+const DetailNews = lazy(() => import("@/pages/News/DetailNews"));
+
+const News = lazy(() => import("@/pages/News/News"));
+
+const Register = lazy(() => import("@/Auth/Register"));
+const ForgotPassword = lazy(() => import("@/Auth/ForgotPassword"));
+
+const ResetPassword = lazy(() => import("@/Auth/ResetPassword"));
+
+const Contact = lazy(() => import("@/pages/Contact/Contact"));
+
+const About = lazy(() => import("@/pages/About/About"));
+
+const Advise = lazy(() => import("@/pages/Advise/Advise"));
+const Healthy = lazy(() => import("@/pages/healthy/Healthy"));
 
 const AppRouter = () => {
   return useRoutes([
@@ -126,20 +137,6 @@ const AppRouter = () => {
             />
           ),
         },
-        // { index: true, element: <Dashboard /> },
-        // {
-        //   path: ROUTES.THU_THAP_TTKH,
-        //   element: <ThuThap />,
-        //   children: [
-        //     { index: true, element: <TiemNang /> },
-        //     { path: ROUTES.NEW_THU_THAP_KH_MOI, element: <KhachHangThemMoi /> },
-        //     {
-        //       path: ROUTES.DETAIL_KH + "/:id",
-        //       element: <KhachHangXemChiTiet />,
-        //     },
-        //     { path: ROUTES.UPDATE_KH, element: <KhachHangThemMoi /> },
-        //   ],
-        // },
       ],
     },
 

@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
 import Button from "@/common/button/Button";
 import { PATH } from "@/routes/path";
 
-const ItemNewChild = ({ item, width, height }) => {
+const ItemNewChild = memo(({ item, width, height }) => {
   const navigate = useNavigate();
   const style = {
     position: "relative",
@@ -25,7 +25,6 @@ const ItemNewChild = ({ item, width, height }) => {
 
   return (
     <div className={`w-full  max-w-full  gap-1 pe-2 `}>
-      {/* <img loading="lazy" src={image} alt="" /> */}
       <div className="slider-item " style={style}></div>
       <div className="p-2 -mx-2">
         <p style={{ marginBottom: "8px" }}>
@@ -55,15 +54,16 @@ const ItemNewChild = ({ item, width, height }) => {
       </div>
     </div>
   );
-};
+});
 
 ItemNewChild.propTypes = {
   item: PropTypes.object,
   height: PropTypes.number,
   width: PropTypes.number,
 };
+ItemNewChild.displayName = "ItemNewChild";
 
-const ItemnNew = ({ data }) => {
+const ItemnNew = memo(({ data }) => {
   return (
     <div className="flex flex-wrap justify-between w-full -me-2">
       <Row className="w-full">
@@ -79,7 +79,8 @@ const ItemnNew = ({ data }) => {
       </Row>
     </div>
   );
-};
+});
+ItemnNew.displayName = "ItemnNew";
 
 ItemnNew.propTypes = {
   data: PropTypes.array,

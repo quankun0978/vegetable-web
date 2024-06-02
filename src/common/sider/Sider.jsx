@@ -1,12 +1,13 @@
-import { memo } from "react";
+import { lazy, memo } from "react";
 import { useNavigate } from "react-router-dom";
 
 import PropTypes from "prop-types";
 
 import Sider from "antd/es/layout/Sider";
-import ItemSider from "./ItemSider";
 
 import { PATH } from "@/routes/path";
+
+const ItemSider = lazy(() => import("./ItemSider"));
 
 const SiderCustom = ({ data }) => {
   const navigate = useNavigate();

@@ -3,18 +3,22 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 
-import { refreshTokenUser } from "@/api/user";
+// import { refreshTokenUser } from "@/api/user";
+import axios from "axios";
 
 export const handleRefreshToken = createAsyncThunk(
   "refresh_token",
   async (payload) => {
-    const data = await refreshTokenUser({
-      refresh_token: /"/g.test(payload.refresh_token)
-        ? payload.refresh_token.replace(/"/g, "")
-        : payload.refresh_token,
-      user_id: payload.user_id,
-    });
-
+    const res = await await axios.post(
+      `${import.meta.env.REACT_APP_URL_BACKEND}/api/refresh_token`,
+      {
+        refresh_token: /"/g.test(payload.refresh_Token)
+          ? payload.refresh_Token.replace(/"/g, "")
+          : payload.refresh_Token,
+        user_id: payload.user_id,
+      }
+    );
+    const data = res.data;
     if (data && data.results && Object.keys(data.results).length > 0) {
       const decodeToken = jwtDecode(data.results.access_token);
 

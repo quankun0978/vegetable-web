@@ -27,6 +27,67 @@ instance.interceptors.request.use(
   }
 );
 
+// Tạo một mảng lưu trữ các pathname không cần gọi refresh token
+// const pathsWithoutRefresh = [
+//   "/login",
+//   "/register",
+//   "/forgot-password",
+//   "/product/list",
+//   "/product/detail",
+//   "/voucher/list",
+//   "/comment/item/list",
+//   "/allcode/list",
+//   "/news/list",
+//   "/news/list/detail",
+// ];
+
+// instance.interceptors.request.use(
+//   async function (config) {
+//     const token = Cookies.get("a_token");
+//     if (token) {
+//       config.headers.Authorization = `${token}`;
+//     } else {
+//       const refresh_Token = localStorage.getItem("rf_token");
+//       const currentUser = JSON.parse(localStorage.getItem("c_user"));
+//       if (refresh_Token && currentUser && currentUser.user_id) {
+//         try {
+//           const response = await axios.post(
+//             `${import.meta.env.REACT_APP_URL_BACKEND}/api/refresh_token`,
+//             {
+//               refresh_token: /"/g.test(refresh_Token)
+//                 ? refresh_Token.replace(/"/g, "")
+//                 : refresh_Token,
+//               user_id: currentUser.user_id,
+//             }
+//           );
+//           const { results } = response.data;
+//           if (results && results.access_token) {
+//             let decodeToken = await jwtDecode(results.access_token);
+//             if (decodeToken && Object.keys(decodeToken).length > 0) {
+//               let time = new Date(decodeToken.exp * 1000);
+
+//               Cookies.set("a_token", results.access_token, { expires: time });
+
+//               localStorage.setItem("rf_token", results.refresh_token);
+
+//               config.headers.Authorization = `${results.access_token}`;
+//             }
+//           }
+//         } catch (error) {
+//           if (error.response && error.response.status === 400) {
+//             // Xử lý lỗi 400
+//           }
+//           return Promise.reject(error);
+//         }
+//       }
+//     }
+//     return config;
+//   },
+//   function (error) {
+//     return Promise.reject(error);
+//   }
+// );
+
 // Add a response interceptor
 instance.interceptors.response.use(
   function (response) {
@@ -67,7 +128,7 @@ instance.interceptors.response.use(
             // originalRequest.headers.Authorization = `${results.access_token}`;
             instance.defaults.headers.common[
               "Authorization"
-            ] = `${results.refresh_Token}`;
+            ] = `${results.access_token}`;
           }
 
           // window.location.reload();

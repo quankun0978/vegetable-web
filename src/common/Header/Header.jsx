@@ -84,9 +84,9 @@ const HeaderCustom = () => {
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
 
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    // return () => {
+    //   window.removeEventListener("scroll", handleScroll);
+    // };
   }, []);
 
   const handleSearch = (value) => {
@@ -178,11 +178,10 @@ const HeaderCustom = () => {
 
       if (elementBottomHeader && elementBottomHeader.current) {
         if (scrollPosition >= elementHeader.current.offsetHeight) {
-          elementHeader.current.style.transform = "translateY(-100%)";
           elementBottomHeader.current.style.transform = "translateY(0))";
           elementBottomHeader.current.style.position = "fixed";
         } else {
-          elementHeader.current.style.transform = "translateY(0 )";
+          elementHeader.current.style.transform = "translateY(0)";
         }
       }
     }

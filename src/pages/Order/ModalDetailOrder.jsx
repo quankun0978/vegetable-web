@@ -77,7 +77,6 @@ const ModalDetailOrder = ({ item, isModalOpen, setIsModalOpen }) => {
     >
       <h3 className="mb-2">Phương thức thanh toán: {item && item.payment}</h3>
       <h3 className="mb-2">Địa chỉ giao hàng: {item && item.address}</h3>
-      <h3 className="mb-2">Ngày mua hàng: {item && item.createdAt}</h3>
       <Table
         pagination={false}
         columns={columns}

@@ -35,7 +35,6 @@ Select.defaultProps = {
   placeholder: "",
   onChange: () => {},
   className: "",
-  isSearch: false,
 };
 
 export default memo(Select);
