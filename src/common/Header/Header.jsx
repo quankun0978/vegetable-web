@@ -62,6 +62,7 @@ const items = [
 const HeaderCustom = () => {
   const navigate = useNavigate();
   const dispath = useDispatch();
+  const count = useRef(0);
   let location = useLocation();
   const elementHeader = useRef();
   const elementBottomHeader = useRef();
@@ -169,6 +170,10 @@ const HeaderCustom = () => {
 
   const handleScroll = () => {
     const scrollPosition = window.scrollY;
+    // if (elementHeader.current && scrollPosition === 0) {
+    //   elementHeader.current.style.transform = "translateY(0)";
+    // }
+
     if (
       elementHeader &&
       elementHeader.current &&
@@ -178,6 +183,14 @@ const HeaderCustom = () => {
 
       if (elementBottomHeader && elementBottomHeader.current) {
         if (scrollPosition >= elementHeader.current.offsetHeight) {
+          console.log(scrollPosition);
+          if (scrollPosition > 0) {
+            elementHeader.current.style.transform = "translateY(-100%)";
+          }
+          // if (scrollPosition >= document.documentElement.scrollHeight - 420) {
+          //   elementHeader.current.style.transform = "translateY(0)";
+          //   console.log(1);
+          // }
           elementBottomHeader.current.style.transform = "translateY(0))";
           elementBottomHeader.current.style.position = "fixed";
         } else {
@@ -200,7 +213,7 @@ const HeaderCustom = () => {
     dispath(logout());
     navigate(PATH.TRANG_CHU);
   };
-
+  console.log();
   return (
     <Header
       ref={elementHeader}

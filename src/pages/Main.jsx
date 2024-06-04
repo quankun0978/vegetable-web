@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback, lazy } from "react";
+import { useEffect, useCallback, lazy, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet, useNavigate } from "react-router-dom";
 
@@ -17,70 +17,54 @@ import { handleGetUserById } from "@/redux/Action/userAction";
 import { handleGetListAllCodes } from "@/redux/Action/appAction";
 import { handleGetListNews } from "@/redux/Action/newsAction";
 
-import { IoIosArrowUp } from "react-icons/io";
-
 const Chatbot = lazy(() => import("@/common/chatbot/Chatbot"));
 
 const { Content } = Layout;
 
 import "@/styles/style.scss";
 import "./main.scss";
+import { handleRefreshToken } from "@/api/axios";
+import Floatbutton from "@/common/floatbutton/Floatbutton";
 
 const Main = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isSuccess = useSelector((state) => state.auth.isSuccess);
+  const isLogout = useSelector((state) => state.auth.isLogout);
+
+  handleRefreshToken(dispatch, navigate);
 
   let CurrentUser = JSON.parse(localStorage.getItem("c_user"));
-
-  const [isShowButton, setIsShowButton] = useState(false);
-
-  const handleScroll = useCallback(() => {
-    const scrollPosition = window.innerHeight + window.scrollY;
-    const pageHeight = document.documentElement.scrollHeight;
-
-    if (scrollPosition >= pageHeight - 700) {
-      setIsShowButton(true);
-    } else {
-      setIsShowButton(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [handleScroll]);
 
   useEffect(() => {
     dispatch(handleGetAllProduct());
     dispatch(handleGetListVoucher());
     dispatch(handleGetListAllCodes());
     dispatch(handleGetListNews());
-  }, [dispatch]);
+  }, []);
+
   const fetchData = useCallback(() => {
     if (CurrentUser && CurrentUser.user_id) {
       dispatch(handleGetUserById(CurrentUser.user_id));
       dispatch(handleGetListMyVoucher(CurrentUser.user_id));
       dispatch(setCurrentUser(CurrentUser));
+    } else {
+      dispatch(handleGetAllProduct());
+      dispatch(handleGetListVoucher());
+      dispatch(handleGetListAllCodes());
+      dispatch(handleGetListNews());
     }
   }, [CurrentUser, dispatch]);
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [fetchData]);
 
   useEffect(() => {
     if (isSuccess) {
       navigate("/");
     }
   }, [isSuccess, navigate]);
-
-  const handleScrollToTop = useCallback(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-  }, []);
 
   return (
     <Layout className=" bg-white  overflow-hidden h-full  lg:px-0  relative">
@@ -95,15 +79,13 @@ const Main = () => {
         </Layout>
       </Content>
       <Footer />
-      <div
-        onClick={handleScrollToTop}
-        className={`float-btn ${
-          isShowButton ? "end" : "start"
-        }  hover:cursor-pointer hover:bg-lime-500  rounded-full fixed bottom-6 right-24  bg-lime-600 w-12 h-12 flex items-center justify-center`}
-      >
-        <IoIosArrowUp size={24} color="#fff" />
-      </div>
-      {CurrentUser && CurrentUser.user_id ? <Chatbot /> : <div></div>}
+
+      <Floatbutton />
+      {CurrentUser && CurrentUser.user_id && !isLogout ? (
+        <Chatbot />
+      ) : (
+        <div></div>
+      )}
     </Layout>
   );
 };

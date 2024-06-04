@@ -128,7 +128,9 @@ const DetailProduct = () => {
               data.price_sale &&
               data.price > data.price_sale && (
                 <div>
-                  <p className={`product_sale relative m-0`}>{data.price}đ</p>
+                  <p style={{ margin: 0 }} className={`product_sale relative `}>
+                    {data.price}đ
+                  </p>
 
                   <p className="font-bold">
                     {data && data.price_sale && data.price_sale}đ

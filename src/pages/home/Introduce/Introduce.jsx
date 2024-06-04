@@ -2,9 +2,6 @@ import { lazy, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-// import SliderCustom from "@/common/content/slider/Slider";
-// import ItemProduct from "@/common/content/Item/ItemProduct";
-// import ItemnNew from "@/common/content/Item/ItemNews";
 import { Spin } from "antd";
 import Button from "@/common/button/Button";
 

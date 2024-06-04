@@ -29,5 +29,5 @@ InputNumber.propTypes = {
 InputNumber.defaultProps = {
   className: "",
 };
-
+  
 export default memo(InputNumber);
